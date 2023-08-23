@@ -11,7 +11,7 @@ import Unocss from 'unocss/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import WebfontDownload from 'vite-plugin-webfont-dl'
 import {
-  ElementPlusResolver,
+  NaiveUiResolver,
 } from 'unplugin-vue-components/resolvers'
 
 export default defineConfig({
@@ -57,7 +57,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: 'src/components.d.ts',
       resolvers: [
-        ElementPlusResolver(),
+        NaiveUiResolver(),
       ],
     }),
 

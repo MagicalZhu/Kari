@@ -1,7 +1,15 @@
 <script setup lang="ts">
-// https://github.com/vueuse/head
-// you can use this to manipulate the document head in any components,
-// they will be rendered correctly in the html results with vite-ssg
+import type { GlobalThemeOverrides } from 'naive-ui'
+import { darkTheme } from 'naive-ui'
+
+const themeOverrides: GlobalThemeOverrides = {
+  common: {
+    primaryColor: '#FF0000',
+  },
+  Button: {
+    textColor: '#FF0000',
+  },
+}
 useHead({
   title: 'Vitesse',
   meta: [
@@ -23,5 +31,12 @@ useHead({
 </script>
 
 <template>
-  <RouterView />
+  <n-config-provider
+    :theme="isDark ? darkTheme : null"
+    :theme-overrides="themeOverrides"
+    h-full
+    w-full
+  >
+    <RouterView />
+  </n-config-provider>
 </template>
