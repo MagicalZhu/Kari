@@ -23,10 +23,6 @@ export default defineConfig({
     ['text-c-active', 'text-brand dark:text-blue-300'],
     ['nav-item', 'hstack space-x-1 text-c-light hover:text-c-dark px-1'],
     ['not-prose', 'max-w-78ch mx-auto text-dark'],
-    [
-      'btn',
-      'hstack space-x-1 rounded transition-colors decoration-none text-sm !text-c bg-gray-100/90 dark:bg-gray-50/10 hover:(!bg-gray-500 !text-white !no-underline)',
-    ],
   ],
   rules: [
     [/^slide-enter-(\d+)$/, ([_, n]) => ({
@@ -48,9 +44,9 @@ export default defineConfig({
     presetTypography(),
     presetWebFonts({
       fonts: {
-        sans: 'DM Sans',
-        serif: 'DM Serif Display',
-        mono: 'DM Mono',
+        // 这些将扩展默认主题
+        sans: ['Inter:400,900'],
+        mono: ['Fira Code', 'Fira Mono:400,900'],
       },
     }),
   ],

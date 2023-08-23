@@ -4,10 +4,23 @@ import { darkTheme } from 'naive-ui'
 
 const themeOverrides: GlobalThemeOverrides = {
   common: {
-    primaryColor: '#FF0000',
+    primaryColor: '#000',
+    primaryColorPressed: '#000',
+    baseColor: '#fff',
+    primaryColorHover: '#1F1F1FFF',
+    primaryColorSuppl: '#202020FF',
+    borderRadius: '8px',
+  },
+  Input: {
+    borderFocus: '1px solid #000',
+    borderHover: '1px solid #000',
+    boxShadowFocus: '0',
   },
   Button: {
-    textColor: '#FF0000',
+    color: '#000',
+    colorFocus: '#000',
+  },
+  Dropdown: {
   },
 }
 useHead({
