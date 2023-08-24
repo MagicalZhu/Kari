@@ -1,4 +1,30 @@
 <script setup lang="ts">
+const { client } = useSupabase()
+const { setLoginData } = useSupabaseStore()
+
+async function signInWithGitHub() {
+  const authData = await client.auth.signInWithOAuth({
+    provider: 'github',
+  })
+  setLoginData(authData)
+  if (authData.error)
+    console.error(authData.error)
+}
+
+async function signout() {
+  const { error } = await client.auth.signOut()
+  if (error)
+    console.error(error)
+}
+
+function handleSelect(key: string | number) {
+  if (String(key) === 'login')
+    signInWithGitHub()
+
+  if (String(key) === 'logout')
+    signout()
+}
+
 const options = [
   {
     label: '用户资料',
@@ -9,15 +35,22 @@ const options = [
     key: 'editProfile',
   },
   {
+    label: '登录',
+    key: 'login',
+    show: true,
+  },
+  {
     label: '退出登录',
     key: 'logout',
+    show: true,
   },
 ]
 </script>
 
 <template>
-  <header class="absolute fixed left-0 left-0 top-0 z-40 h-17 w-full px-4 py-8">
+  <header class="absolute fixed left-0 left-0 top-0 z-40 h-17 w-full px-4 py-4">
     <nav class="flex items-center justify-end space-x-4">
+      <!--
       <router-link to="/posts" :title="$t('theme.nav.Blog')" class="nav-item">
         <div i-carbon:blog />
       </router-link>
@@ -42,8 +75,8 @@ const options = [
       <button nav-item @click="toggleDark()">
         <div class="i-lucide:sun dark:i-lucide:moon" />
       </button>
-
-      <n-dropdown :options="options">
+    -->
+      <n-dropdown :options="options" @select="handleSelect">
         <n-button type="primary" bg-dark-9>
           设置
         </n-button>
