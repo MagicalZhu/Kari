@@ -1,32 +1,58 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
+import { ACCESS_TOKEN, CURRENT_USER } from '~/config/storeType'
+
+import { storage } from '~/util/Storage'
+
+export interface UserInfoType {
+  name: string
+  email: string
+}
+
+export interface IUserState {
+  token: string
+  username: string
+  welcome: string
+  avatar: string
+  permissions: any[]
+  info: UserInfoType
+}
+
 export const useUserStore = defineStore('user', () => {
-  /**
-   * Current name of the user.
-   */
-  const savedName = ref('')
-  const previousNames = ref(new Set<string>())
+  const token = ref(storage.get(ACCESS_TOKEN, ''))
+  const username = ref('')
+  const welcome = ref('')
+  const avatar = ref('')
+  const permissions = ref([])
+  const info = ref(storage.get(CURRENT_USER, {}))
 
-  const usedNames = computed(() => Array.from(previousNames.value))
-  const otherNames = computed(() => usedNames.value.filter(name => name !== savedName.value))
+  const setToken = (tokenStr: string) => {
+    token.value = tokenStr
+  }
 
-  /**
-   * Changes the current name of the user and saves the one that was used
-   * before.
-   *
-   * @param name - new name to set
-   */
-  function setNewName(name: string) {
-    if (savedName.value)
-      previousNames.value.add(savedName.value)
+  const setAvatar = (avatarStr: string) => {
+    avatar.value = avatarStr
+  }
 
-    savedName.value = name
+  const setPermissions = (permissionsBuf: []) => {
+    permissions.value = permissionsBuf
+  }
+
+  const setUserInfo = (userInfo: UserInfoType) => {
+    info.value = userInfo
   }
 
   return {
-    setNewName,
-    otherNames,
-    savedName,
+    token,
+    username,
+    welcome,
+    avatar,
+    permissions,
+    info,
+    setToken,
+    setAvatar,
+    setPermissions,
+    setUserInfo,
   }
 })
 

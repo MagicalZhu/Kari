@@ -1,30 +1,26 @@
 <script setup lang="ts">
-import type { GlobalThemeOverrides } from 'naive-ui'
-import { darkTheme } from 'naive-ui'
+import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
+import { lighten } from '~/util/index'
 
-const themeOverrides: GlobalThemeOverrides = {
-  common: {
-    primaryColor: '#000',
-    primaryColorPressed: '#000',
-    baseColor: '#fff',
-    primaryColorHover: '#1F1F1FFF',
-    primaryColorSuppl: '#202020FF',
-    borderRadius: '8px',
-  },
-  Input: {
-    borderFocus: '1px solid #000',
-    borderHover: '1px solid #000',
-    boxShadowFocus: '0',
-  },
-  Button: {
-    color: '#000',
-    colorFocus: '#000',
-  },
-  Dropdown: {
-  },
-}
+const getThemeOverrides = computed(() => {
+  const appTheme = '#000'
+  const lightenStr = lighten(appTheme, 6)
+  return {
+    common: {
+      primaryColor: appTheme,
+      primaryColorSuppl: appTheme,
+      primaryColorHover: lightenStr,
+      primaryColorPressed: lightenStr,
+      borderRadius: '8px',
+    },
+    LoadingBar: {
+      colorLoading: appTheme,
+    },
+  }
+})
+
 useHead({
-  title: 'Vitesse',
+  title: 'Vue Tools',
   meta: [
     { name: 'naive-ui-style' },
     { name: 'description', content: 'Opinionated Vite Starter Template' },
@@ -44,12 +40,18 @@ useHead({
 </script>
 
 <template>
-  <n-config-provider
+  <NConfigProvider
+    :locale="zhCN"
+    :date-locale="dateZhCN"
     :theme="isDark ? darkTheme : null"
-    :theme-overrides="themeOverrides"
-    h-full
-    w-full
+    :theme-overrides="getThemeOverrides"
   >
-    <RouterView />
-  </n-config-provider>
+    <n-dialog-provider>
+      <n-notification-provider>
+        <n-message-provider>
+          <RouterView />
+        </n-message-provider>
+      </n-notification-provider>
+    </n-dialog-provider>
+  </NConfigProvider>
 </template>

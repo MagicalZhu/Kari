@@ -10,6 +10,7 @@ import VueI18n from '@intlify/unplugin-vue-i18n/vite'
 import Unocss from 'unocss/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import WebfontDownload from 'vite-plugin-webfont-dl'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import {
   NaiveUiResolver,
 } from 'unplugin-vue-components/resolvers'
@@ -27,6 +28,7 @@ export default defineConfig({
         vue: Vue({
           include: [/\.vue$/, /\.md$/],
         }),
+        vueJsx: vueJsx(),
       },
     }),
 
@@ -56,6 +58,9 @@ export default defineConfig({
       extensions: ['vue', 'md'],
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: 'src/components.d.ts',
+      deep: true,
+      directoryAsNamespace: true,
+      collapseSamePrefixes: true,
       resolvers: [
         NaiveUiResolver(),
       ],
@@ -71,7 +76,6 @@ export default defineConfig({
     }),
 
     WebfontDownload(),
-    // VueDevTools(),
   ],
   ssgOptions: {
     script: 'async',

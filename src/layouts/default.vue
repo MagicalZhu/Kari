@@ -1,7 +1,5 @@
 <template>
-  <main w-full items-center>
-    <!-- Header -->
-    <Navbar />
+  <BasicLayout>
     <RouterView />
-  </main>
+  </BasicLayout>
 </template>
