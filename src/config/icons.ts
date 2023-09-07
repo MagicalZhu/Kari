@@ -1,4 +1,5 @@
 import {
+  Github,
   Search,
   Settings,
   User,
@@ -8,4 +9,5 @@ export const IconsMap = {
   Search,
   Settings,
   User,
+  Github,
 }

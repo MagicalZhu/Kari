@@ -39,6 +39,11 @@ onMounted(() => {
   checkMobileMode()
   window.addEventListener('resize', watchWidth)
 })
+
+const show = computed<boolean>({
+  get: () => useLoadingStore().showLoading,
+  set: val => useLoadingStore().isLoading(val),
+})
 </script>
 
 <template>
@@ -56,7 +61,12 @@ onMounted(() => {
           class="layout-content-main layout-content-main-fix"
         >
           <div class="mt-[2em] pt-0">
-            <Main />
+            <n-spin :show="show">
+              <Main />
+              <template #description>
+                Loading ...
+              </template>
+            </n-spin>
           </div>
         </div>
       </n-layout-content>

@@ -14,14 +14,13 @@ export default defineComponent({
     },
   },
   setup() {
+    const { setAvatar, setUserName, username } = useUserStore()
     const UserIcon = IconsMap.User
     // const message = useMessage()
     const dialog = useDialog()
 
-    const { name } = useUserStore()?.info || {}
-
     const state = reactive({
-      username: name ?? 'Pacos',
+      username: username ?? 'Pacos',
     })
 
     // 退出登录
@@ -68,19 +67,43 @@ export default defineComponent({
         key: 1,
       },
       {
-        label: '退出登录',
+        label: 'GitHub 登录',
         key: 2,
+      },
+      {
+        label: '退出登录',
+        key: 3,
       },
     ]
 
+    const { isLoading } = useLoadingStore()
+
     // 头像下拉菜单
-    const avatarSelect = (key: number) => {
-      switch (key) {
-        case 1:
-          break
-        case 2:
-          doLogout()
-          break
+    const avatarSelect = async (key: number) => {
+      if (key === 2) {
+        isLoading(true)
+        await useSupabase().LoginWithGithub()
+        isLoading(false)
+      }
+
+      if (key === 3) {
+        isLoading(true)
+        await useSupabase().logout()
+        isLoading(false)
+      }
+      if (key === 1) {
+        isLoading(true)
+        const session = await useSupabase().getSession()
+        console.error(session)
+        if (session && session.provider_token) {
+          const data = await useGithub().getStarredList({
+            token: session.provider_token,
+          })
+          console.error(data)
+        }
+        setAvatar(session?.user.user_metadata.avatar_url)
+        setUserName(session?.user.user_metadata.name)
+        isLoading(false)
       }
     }
 
@@ -97,115 +120,20 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="layout-header">
-    <!-- 顶部菜单 -->
-    <div class="layout-header-left">
-      <div class="logo">
-        <h2 class="title">
-          Pacos
-        </h2>
-      </div>
-    </div>
-    <div class="layout-header-right">
-      <div
-        v-for="(item, index) in iconList"
-        :key="index"
-        class="layout-header-trigger layout-header-trigger-min"
-      >
-        <n-tooltip placement="bottom">
-          <template #trigger>
-            <n-icon size="22">
-              <component :is="item.icon" v-on="item.eventObject || {}" />
-            </n-icon>
-          </template>
-          <span>{{ item.tips }}</span>
-        </n-tooltip>
-      </div>
+  <div class="h-16 py-4">
+    <div class="flex items-center justify-end space-x-4">
       <!-- 个人中心 -->
-      <div class="layout-header-trigger layout-header-trigger-min">
-        <n-dropdown trigger="hover" :options="avatarOptions">
-          <div class="avatar">
-            <n-avatar round>
-              {{ username }}
-            </n-avatar>
-          </div>
+      <div>
+        <n-dropdown trigger="hover" :options="avatarOptions" @select="avatarSelect">
+          <n-avatar v-if="username" round class="mr-[2em]">
+            {{ username }}
+          </n-avatar>
+
+          <n-icon v-else size="22" class="mr-[2em]">
+            <component :is="UserIcon" />
+          </n-icon>
         </n-dropdown>
       </div>
     </div>
   </div>
 </template>
-
-<style lang="less" scoped>
-  .layout-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0;
-    height: 64px;
-    box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
-    transition: all 0.2s ease-in-out;
-    width: 100%;
-    z-index: 11;
-
-    &-left {
-      display: flex;
-      align-items: center;
-
-      .logo {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 64px;
-        line-height: 64px;
-        overflow: hidden;
-        white-space: nowrap;
-        padding-left: 10px;
-
-        .title {
-          margin-bottom: 0;
-        }
-      }
-
-    }
-
-    &-right {
-      display: flex;
-      align-items: center;
-      margin-right: 20px;
-
-      .avatar {
-        display: flex;
-        align-items: center;
-        height: 64px;
-      }
-
-      > * {
-        cursor: pointer;
-      }
-    }
-
-    &-trigger {
-      display: inline-block;
-      width: 64px;
-      height: 64px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-
-      .n-icon {
-        display: flex;
-        align-items: center;
-        height: 64px;
-        line-height: 64px;
-      }
-
-      &:hover {
-        background: hsla(0, 0%, 100%, 0.08);
-      }
-    }
-    &-trigger-min {
-      width: auto;
-      padding: 0 12px;
-    }
-  }
-</style>

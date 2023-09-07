@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
-import { lighten } from '~/util/index'
 
 const getThemeOverrides = computed(() => {
-  const appTheme = '#000'
-  const lightenStr = lighten(appTheme, 6)
+  const appTheme = '#000000'
+  const lightenStr = '#403E3EFF'
   return {
     common: {
       primaryColor: appTheme,

@@ -15,4 +15,4 @@ export const useSupabaseStore = defineStore('supabase', () => {
 })
 
 if (import.meta.hot)
-  import.meta.hot.accept(acceptHMRUpdate(useSupabaseStore as any, import.meta.hot))
+  import.meta.hot.accept(acceptHMRUpdate(useSupabaseStore, import.meta.hot))

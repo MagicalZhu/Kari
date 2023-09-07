@@ -1,8 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@supabase/supabase-js'
 
-const { setLoginData } = useSupabaseStore()
-
 export interface UseFirebaseAuthOptions {
   client: SupabaseClient
 }
@@ -13,23 +11,33 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 export function useSupabase() {
   const client = createClient(supabaseUrl, supabaseAnonKey)
 
-  async function signInWithGitHub() {
+  async function LoginWithGithub() {
     const authData = await client.auth.signInWithOAuth({
       provider: 'github',
+      options: {
+        redirectTo: 'http://localhost:3333',
+      },
     })
-    setLoginData(authData)
     if (authData.error)
       console.error(authData.error)
   }
-  async function signout() {
+  async function logout() {
     const { error } = await client.auth.signOut()
     if (error)
       console.error(error)
   }
 
+  async function getSession() {
+    const {
+      data: { session },
+    } = await client.auth.getSession()
+    return session
+  }
+
   return {
     client,
-    signInWithGitHub,
-    signout,
+    LoginWithGithub,
+    logout,
+    getSession,
   }
 }
