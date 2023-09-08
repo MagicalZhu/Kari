@@ -2,18 +2,18 @@
 import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
 
 const getThemeOverrides = computed(() => {
-  const appTheme = '#000000'
-  const lightenStr = '#403E3EFF'
+  const primaryTheme = '#000000'
+  const lightenTheme = '#403E3EFF'
   return {
     common: {
-      primaryColor: appTheme,
-      primaryColorSuppl: appTheme,
-      primaryColorHover: lightenStr,
-      primaryColorPressed: lightenStr,
+      primaryColor: primaryTheme,
+      primaryColorSuppl: primaryTheme,
+      primaryColorHover: lightenTheme,
+      primaryColorPressed: lightenTheme,
       borderRadius: '8px',
     },
     LoadingBar: {
-      colorLoading: appTheme,
+      colorLoading: primaryTheme,
     },
   }
 })

@@ -3,6 +3,7 @@ import {
   Search,
   Settings,
   User,
+  Cog,
 } from 'lucide-vue-next'
 
 export const IconsMap = {
@@ -10,4 +11,5 @@ export const IconsMap = {
   Settings,
   User,
   Github,
+  Cog
 }

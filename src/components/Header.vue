@@ -14,8 +14,9 @@ export default defineComponent({
     },
   },
   setup() {
+    const { isLoading } = useLoadingStore()
     const { setAvatar, setUserName, username } = useUserStore()
-    const UserIcon = IconsMap.User
+    const CogIcon = IconsMap.Cog
     // const message = useMessage()
     const dialog = useDialog()
 
@@ -64,34 +65,35 @@ export default defineComponent({
     const avatarOptions = [
       {
         label: '个人设置',
-        key: 1,
+        key: 'Personal-Setting',
+        show: true,
       },
       {
-        label: 'GitHub 登录',
-        key: 2,
+        label: '登录',
+        key: 'Login',
+        show: !username,
       },
       {
         label: '退出登录',
-        key: 3,
+        key: 'Logout',
+        show: !!username,
       },
     ]
 
-    const { isLoading } = useLoadingStore()
-
     // 头像下拉菜单
-    const avatarSelect = async (key: number) => {
-      if (key === 2) {
+    const avatarSelect = async (key: string) => {
+      if (key === 'Login') {
         isLoading(true)
         await useSupabase().LoginWithGithub()
         isLoading(false)
       }
 
-      if (key === 3) {
+      if (key === 'Logout') {
         isLoading(true)
         await useSupabase().logout()
         isLoading(false)
       }
-      if (key === 1) {
+      if (key === 'Personal-Setting') {
         isLoading(true)
         const session = await useSupabase().getSession()
         console.error(session)
@@ -108,7 +110,7 @@ export default defineComponent({
     }
 
     return {
-      UserIcon,
+      CogIcon,
       ...toRefs(state),
       iconList,
       doLogout,
@@ -124,14 +126,15 @@ export default defineComponent({
     <div class="flex items-center justify-end space-x-4">
       <!-- 个人中心 -->
       <div>
-        <n-dropdown trigger="hover" :options="avatarOptions" @select="avatarSelect">
-          <n-avatar v-if="username" round class="mr-[2em]">
-            {{ username }}
-          </n-avatar>
-
-          <n-icon v-else size="22" class="mr-[2em]">
-            <component :is="UserIcon" />
-          </n-icon>
+        <n-dropdown trigger="click" :options="avatarOptions" hover:cursor-pointer @select="avatarSelect">
+          <n-button text style="font-size: 24px">
+            <n-avatar v-if="username" round class="mr-[2em]">
+              {{ username }}
+            </n-avatar>
+            <n-icon v-else size="22" class="mr-[2em]">
+              <component :is="CogIcon" />
+            </n-icon>
+          </n-button>
         </n-dropdown>
       </div>
     </div>
