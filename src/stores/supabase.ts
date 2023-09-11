@@ -1,16 +1,15 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { OAuthResponse } from '@supabase/supabase-js'
+import type { GithubRepoItem } from '~/types/base'
 
 export const useSupabaseStore = defineStore('supabase', () => {
-  const loginData = ref({})
+  const starsData = ref<GithubRepoItem[]>([])
 
-  function setLoginData(data: OAuthResponse) {
-    loginData.value = data
+  function setStars(data: GithubRepoItem[]) {
+    starsData.value = data
   }
 
   return {
-    setLoginData,
-    loginData,
+    setStars,
   }
 })
 

@@ -27,6 +27,18 @@ export const useUserStore = defineStore('user', () => {
     username.value = name
   }
 
+  const clearUser = () => {
+    setToken('')
+    setAvatar('')
+    setUserName('')
+  }
+
+  const hasLogin = computed(() => {
+    if (username.value && username.value !== '')
+      return true
+    return false
+  })
+
   return {
     token,
     username,
@@ -34,7 +46,11 @@ export const useUserStore = defineStore('user', () => {
     setToken,
     setAvatar,
     setUserName,
+    clearUser,
+    hasLogin,
   }
+}, {
+  persist: true,
 })
 
 if (import.meta.hot)

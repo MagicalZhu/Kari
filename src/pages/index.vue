@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import { IconsMap } from '~/config/icons'
-
 const name = computed<string>({
   get: () => useUserStore().username,
   set: val => useUserStore().setUserName(val),
 })
-const GitHub = IconsMap.Github
 </script>
 
 <template>
@@ -17,18 +14,9 @@ const GitHub = IconsMap.Github
             <n-button v-if="name">
               {{ name }}
             </n-button>
-            <n-button
-              v-else type="primary"
-              size="medium"
-              class="h-10 w-[13em]"
-            >
-              <template #icon>
-                <n-icon size="22">
-                  <component :is="GitHub" />
-                </n-icon>
-              </template>
-              <span text-lg font-100 font-sans>GitHub</span>
-            </n-button>
+            <span v-else>
+              什么都没有~
+            </span>
           </n-space>
         </n-card>
       </n-grid-item>
