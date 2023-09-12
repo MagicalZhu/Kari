@@ -9,8 +9,11 @@ export const useSupabaseStore = defineStore('supabase', () => {
   }
 
   return {
+    starsData,
     setStars,
   }
+}, {
+  persist: true,
 })
 
 if (import.meta.hot)
