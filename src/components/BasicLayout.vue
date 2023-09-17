@@ -60,7 +60,7 @@ const show = computed<boolean>({
         <div
           class="layout-content-main layout-content-main-fix"
         >
-          <div class="mt-[2em] pt-0">
+          <div class="mt-[1em] pt-0">
             <n-spin :show="show">
               <Main />
               <template #description>

@@ -48,3 +48,13 @@ export interface UpsertRepo {
   removed_tag_ids?: number[]
   created_tag_titles?: string[]
 }
+
+export interface Category {
+  id: number
+  comment?: string
+  name: string
+  order?: number
+  parent_id?: number
+  user_id: string
+  children?: Category[]
+}

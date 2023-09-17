@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AccountInfo: typeof import('./components/Star/AccountInfo.vue')['default']
     BasicLayout: typeof import('./components/BasicLayout.vue')['default']
     Header: typeof import('./components/Header.vue')['default']
     Main: typeof import('./components/Main.vue')['default']
@@ -38,11 +39,13 @@ declare module 'vue' {
     NLayoutSider: typeof import('naive-ui')['NLayoutSider']
     NMenu: typeof import('naive-ui')['NMenu']
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
+    NModal: typeof import('naive-ui')['NModal']
     NNotificationProvider: typeof import('naive-ui')['NNotificationProvider']
     NPageHeader: typeof import('naive-ui')['NPageHeader']
     NRadio: typeof import('naive-ui')['NRadio']
     NRadioGroup: typeof import('naive-ui')['NRadioGroup']
     NScrollbar: typeof import('naive-ui')['NScrollbar']
+    NSelect: typeof import('naive-ui')['NSelect']
     NSpace: typeof import('naive-ui')['NSpace']
     NSpin: typeof import('naive-ui')['NSpin']
     NStatistic: typeof import('naive-ui')['NStatistic']
@@ -50,7 +53,10 @@ declare module 'vue' {
     NThing: typeof import('naive-ui')['NThing']
     NTooltip: typeof import('naive-ui')['NTooltip']
     NTree: typeof import('naive-ui')['NTree']
+    RepoInfo: typeof import('./components/Star/RepoInfo.vue')['default']
+    RepoLangInfo: typeof import('./components/Star/RepoLangInfo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TagsInfo: typeof import('./components/Star/TagsInfo.vue')['default']
   }
 }

@@ -59,8 +59,6 @@ export default defineConfig({
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: 'src/components.d.ts',
       deep: true,
-      directoryAsNamespace: true,
-      collapseSamePrefixes: true,
       resolvers: [
         NaiveUiResolver(),
       ],

@@ -144,6 +144,7 @@ declare global {
   const useCycleList: typeof import('@vueuse/core')['useCycleList']
   const useDark: typeof import('@vueuse/core')['useDark']
   const useDateFormat: typeof import('@vueuse/core')['useDateFormat']
+  const useDbStore: typeof import('./stores/db')['useDbStore']
   const useDebounce: typeof import('@vueuse/core')['useDebounce']
   const useDebounceFn: typeof import('@vueuse/core')['useDebounceFn']
   const useDebouncedRefHistory: typeof import('@vueuse/core')['useDebouncedRefHistory']
@@ -175,6 +176,7 @@ declare global {
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
   const useGeolocation: typeof import('@vueuse/core')['useGeolocation']
   const useGithub: typeof import('./composables/github')['useGithub']
+  const useGithubStore: typeof import('./stores/github')['useGithubStore']
   const useHead: typeof import('@vueuse/head')['useHead']
   const useI18n: typeof import('vue-i18n')['useI18n']
   const useIdle: typeof import('@vueuse/core')['useIdle']
@@ -245,9 +247,9 @@ declare global {
   const useStorageAsync: typeof import('@vueuse/core')['useStorageAsync']
   const useStyleTag: typeof import('@vueuse/core')['useStyleTag']
   const useSupabase: typeof import('./composables/supabase')['useSupabase']
-  const useSupabaseStore: typeof import('./stores/supabase')['useSupabaseStore']
   const useSupported: typeof import('@vueuse/core')['useSupported']
   const useSwipe: typeof import('@vueuse/core')['useSwipe']
+  const useTable: typeof import('./composables/db')['useTable']
   const useTemplateRefsList: typeof import('@vueuse/core')['useTemplateRefsList']
   const useTextDirection: typeof import('@vueuse/core')['useTextDirection']
   const useTextSelection: typeof import('@vueuse/core')['useTextSelection']
@@ -444,6 +446,7 @@ declare module 'vue' {
     readonly useCycleList: UnwrapRef<typeof import('@vueuse/core')['useCycleList']>
     readonly useDark: UnwrapRef<typeof import('@vueuse/core')['useDark']>
     readonly useDateFormat: UnwrapRef<typeof import('@vueuse/core')['useDateFormat']>
+    readonly useDbStore: UnwrapRef<typeof import('./stores/db')['useDbStore']>
     readonly useDebounce: UnwrapRef<typeof import('@vueuse/core')['useDebounce']>
     readonly useDebounceFn: UnwrapRef<typeof import('@vueuse/core')['useDebounceFn']>
     readonly useDebouncedRefHistory: UnwrapRef<typeof import('@vueuse/core')['useDebouncedRefHistory']>
@@ -475,6 +478,7 @@ declare module 'vue' {
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
     readonly useGithub: UnwrapRef<typeof import('./composables/github')['useGithub']>
+    readonly useGithubStore: UnwrapRef<typeof import('./stores/github')['useGithubStore']>
     readonly useHead: UnwrapRef<typeof import('@vueuse/head')['useHead']>
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
@@ -543,9 +547,9 @@ declare module 'vue' {
     readonly useStorageAsync: UnwrapRef<typeof import('@vueuse/core')['useStorageAsync']>
     readonly useStyleTag: UnwrapRef<typeof import('@vueuse/core')['useStyleTag']>
     readonly useSupabase: UnwrapRef<typeof import('./composables/supabase')['useSupabase']>
-    readonly useSupabaseStore: UnwrapRef<typeof import('./stores/supabase')['useSupabaseStore']>
     readonly useSupported: UnwrapRef<typeof import('@vueuse/core')['useSupported']>
     readonly useSwipe: UnwrapRef<typeof import('@vueuse/core')['useSwipe']>
+    readonly useTable: UnwrapRef<typeof import('./composables/db')['useTable']>
     readonly useTemplateRefsList: UnwrapRef<typeof import('@vueuse/core')['useTemplateRefsList']>
     readonly useTextDirection: UnwrapRef<typeof import('@vueuse/core')['useTextDirection']>
     readonly useTextSelection: UnwrapRef<typeof import('@vueuse/core')['useTextSelection']>
@@ -736,6 +740,7 @@ declare module '@vue/runtime-core' {
     readonly useCycleList: UnwrapRef<typeof import('@vueuse/core')['useCycleList']>
     readonly useDark: UnwrapRef<typeof import('@vueuse/core')['useDark']>
     readonly useDateFormat: UnwrapRef<typeof import('@vueuse/core')['useDateFormat']>
+    readonly useDbStore: UnwrapRef<typeof import('./stores/db')['useDbStore']>
     readonly useDebounce: UnwrapRef<typeof import('@vueuse/core')['useDebounce']>
     readonly useDebounceFn: UnwrapRef<typeof import('@vueuse/core')['useDebounceFn']>
     readonly useDebouncedRefHistory: UnwrapRef<typeof import('@vueuse/core')['useDebouncedRefHistory']>
@@ -767,6 +772,7 @@ declare module '@vue/runtime-core' {
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
     readonly useGithub: UnwrapRef<typeof import('./composables/github')['useGithub']>
+    readonly useGithubStore: UnwrapRef<typeof import('./stores/github')['useGithubStore']>
     readonly useHead: UnwrapRef<typeof import('@vueuse/head')['useHead']>
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
     readonly useIdle: UnwrapRef<typeof import('@vueuse/core')['useIdle']>
@@ -835,9 +841,9 @@ declare module '@vue/runtime-core' {
     readonly useStorageAsync: UnwrapRef<typeof import('@vueuse/core')['useStorageAsync']>
     readonly useStyleTag: UnwrapRef<typeof import('@vueuse/core')['useStyleTag']>
     readonly useSupabase: UnwrapRef<typeof import('./composables/supabase')['useSupabase']>
-    readonly useSupabaseStore: UnwrapRef<typeof import('./stores/supabase')['useSupabaseStore']>
     readonly useSupported: UnwrapRef<typeof import('@vueuse/core')['useSupported']>
     readonly useSwipe: UnwrapRef<typeof import('@vueuse/core')['useSwipe']>
+    readonly useTable: UnwrapRef<typeof import('./composables/db')['useTable']>
     readonly useTemplateRefsList: UnwrapRef<typeof import('@vueuse/core')['useTemplateRefsList']>
     readonly useTextDirection: UnwrapRef<typeof import('@vueuse/core')['useTextDirection']>
     readonly useTextSelection: UnwrapRef<typeof import('@vueuse/core')['useTextSelection']>

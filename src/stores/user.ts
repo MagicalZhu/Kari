@@ -4,16 +4,11 @@ import { ACCESS_TOKEN } from '~/config/storeType'
 
 import { storage } from '~/util/Storage'
 
-export interface IUserState {
-  token: string
-  username: string
-  avatar: string
-}
-
 export const useUserStore = defineStore('user', () => {
   const token = ref(storage.get(ACCESS_TOKEN, ''))
   const username = ref('')
   const avatar = ref('')
+  const userId = ref('')
 
   const setToken = (tokenStr: string) => {
     token.value = tokenStr
@@ -27,10 +22,15 @@ export const useUserStore = defineStore('user', () => {
     username.value = name
   }
 
+  const setUserId = (id: string) => {
+    userId.value = id
+  }
+
   const clearUser = () => {
     setToken('')
     setAvatar('')
     setUserName('')
+    setUserId('')
   }
 
   const hasLogin = computed(() => {
@@ -43,9 +43,11 @@ export const useUserStore = defineStore('user', () => {
     token,
     username,
     avatar,
+    userId,
     setToken,
     setAvatar,
     setUserName,
+    setUserId,
     clearUser,
     hasLogin,
   }
