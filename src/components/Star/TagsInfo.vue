@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { MockData } from '~/config/data'
+import { displayTags } from '~/util/db'
 
 const pattern = ref('')
 const showIrrelevantNodes = ref(false)
+
+const { category } = useDbStore()
+
+const treeData = computed(() => {
+  return displayTags(category)
+})
 </script>
 
 <template>
@@ -12,9 +18,10 @@ const showIrrelevantNodes = ref(false)
   <div>
     <n-tree
       :accordion="true"
+      :expand-on-click="true"
       :show-irrelevant-nodes="showIrrelevantNodes"
       :pattern="pattern"
-      :data="MockData.TagsData"
+      :data="treeData"
       block-line
     />
   </div>

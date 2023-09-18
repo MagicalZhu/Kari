@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { GithubRepoItem } from '~/types/base'
+import { takeTags } from '~/util/db'
 
 const { isLoading } = useLoadingStore()
 
@@ -10,8 +11,8 @@ const avatar = computed<string>(() => useUserStore().avatar)
 const token = computed(() => useUserStore().token)
 
 const { user, client } = useSupabase()
-
 const { getCategory } = useTable(client)
+const { setCategory } = useDbStore()
 
 watch(user, async () => {
   if (user.value) {
@@ -60,7 +61,9 @@ async function settingSelect(key: string) {
         token: token.value,
       })
       setStars(data.data as GithubRepoItem[])
-      await getCategory()
+      const categories = await getCategory()
+      if (categories)
+        setCategory(takeTags(categories))
     }
     isLoading(false)
   }
