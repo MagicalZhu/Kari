@@ -27,14 +27,23 @@ watch(
 )
 
 const showModal = ref(false)
+const githubId = ref('')
 
-function editStarItem() {
+function editStarItem(githubIdStr:string) {
   model.value = {
     parent: null,
     children: [],
     comment: '',
   }
+  githubId.value = githubIdStr
   showModal.value = true
+}
+
+function saveToDb() {
+  const { parent, children, comment } = model.value
+  if (!parent && children)
+    return false
+  if
 }
 
 const renderTag: SelectRenderTag = ({ option, handleClose }) => {
@@ -51,7 +60,7 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
         e.stopPropagation()
         handleClose()
       },
-      class: 'rounded-md',
+      class: 'rounded-lg',
     },
     { default: () => option.label },
   )
@@ -84,7 +93,7 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
         </n-button>
       </template>
       <template #header-extra>
-        <n-button text style="font-size: 24px" @click="editStarItem">
+        <n-button text style="font-size: 24px" @click="editStarItem(item.github_id)">
           <template #icon>
             <component :is="IconsMap.PenSquare" :size="14" text-gray-3 hover:text-gray-7 />
           </template>
@@ -177,7 +186,7 @@ const renderTag: SelectRenderTag = ({ option, handleClose }) => {
           />
         </n-form-item>
         <div flex justify-end>
-          <n-button type="primary">
+          <n-button type="primary" @click="saveToDb">
             保存
           </n-button>
         </div>
